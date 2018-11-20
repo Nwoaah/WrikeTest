@@ -25,6 +25,6 @@ public class WebDriverTryTest {
         aTry.CreateMyWrikeAcc();
         aTry.makeScreenShot();
 
-        aTry.quit();
+       // aTry.quit();
     }
 }
