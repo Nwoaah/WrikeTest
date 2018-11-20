@@ -1,0 +1,9 @@
+.allure
+
+#IDEA Files
+.idea
+target
+*.iml
+*.ipr
+allure-results
+debug.log
