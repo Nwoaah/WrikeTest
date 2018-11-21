@@ -29,7 +29,7 @@ public class WrikeUIActions {
     @Step
     public WrikeResendPage startFreeForTodayWithEmail(WrikeMainPage mainPage, String email) {
         // Click Start for free
-        mainPage.click(WrikeMainPage.getStartedForFreeBtn);
+      //  mainPage.click(WrikeMainPage.getStartedForFreeBtn);
         // Fill email form
         mainPage.writeText(WrikeMainPage.newEmailModalText, email);
         // Click submit

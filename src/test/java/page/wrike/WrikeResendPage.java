@@ -26,6 +26,14 @@ public class WrikeResendPage extends BasePage {
             //wait until it is visible
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("nzQUNc")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("Pv7Rnc")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("SxbKmc")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("CwaK9")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("gcr-logo")));
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             //click NO
             driver.findElement(closeGoogleIframeOnResendPage).click();
         }

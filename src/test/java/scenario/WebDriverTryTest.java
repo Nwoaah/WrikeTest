@@ -31,6 +31,7 @@ public class WebDriverTryTest {
         WrikeMainPage pageWm = wAct.goToMainPage();
         // Register with new email
         String email = StringGeenerator.generateEmail();
+        wAct.clickGetStartedForFree(pageWm);
         WrikeResendPage pageWr = wAct.startFreeForTodayWithEmail(pageWm, email);
         // Check successful registration
         pageWr.waitForPageToLoad();
