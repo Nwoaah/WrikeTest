@@ -1,8 +1,9 @@
 package page.wrike;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import page.base.BasePage;
 import util.TestConstants;
@@ -39,6 +40,15 @@ public class WrikeResendPage extends BasePage {
         }
 
     }
+
+    public WebElement expandRootElement(WebElement element) {
+        WebElement ele = (WebElement) ((JavascriptExecutor) driver)
+                .executeScript("return arguments[0].shadowRoot", element);
+        return ele;
+    }
+
+
+
 
 
 }

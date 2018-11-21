@@ -51,4 +51,9 @@ public abstract class StringGeenerator {
         return generateString(5,12,
                 Arrays.asList(Symbol.LETTERS_U, Symbol.LETTERS_L, Symbol.NUMBERS, Symbol.SYMBOLS)) + WRIKE_EMAIL_DOMAIN;
     }
+
+    public static String generateRandomString() {
+        return generateString(5,12,
+                Arrays.asList(Symbol.LETTERS_U, Symbol.LETTERS_L));
+    }
 }

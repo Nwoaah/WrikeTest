@@ -29,16 +29,22 @@ public class WebDriverTryTest {
     public void searchTest() throws Exception {
         // Move to main page
         WrikeMainPage pageWm = wAct.goToMainPage();
+        // Click
+        wAct.clickGetStartedForFree(pageWm);
         // Register with new email
         String email = StringGeenerator.generateEmail();
-        wAct.clickGetStartedForFree(pageWm);
         WrikeResendPage pageWr = wAct.startFreeForTodayWithEmail(pageWm, email);
-        // Check successful registration
+        // Check successful registration/Wait for loading the page
         pageWr.waitForPageToLoad();
         // Check current page
         wAsn.checkIfCurrentPageIsWrikeResend();
 
 
+        //Check for Twitter
+//        pageWr.chekSiteFooterForCorrectTwitterButton();
+        wAct.FillingTheQASection(pageWr);
+
+        wAct.SubmitResults(pageWr);
 
     }
 }
