@@ -2,6 +2,7 @@ package step.action;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -105,39 +106,44 @@ public class WrikeUIActions {
     }
 
 
-    //    @Step
-    //    public void chekSiteFooterForCorrectTwitterButton() {
-//        if (driver.findElement(footerFollowUs).isEnabled()) {
-//            System.out.println(driver.findElements(footerFollowUs));
-//            WebElement elem3 = driver.findElement(By.cssSelector("/html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[1]/a/svg/use"));
-//            System.out.println(elem3.getText());
-//            ShadowRoot shadowRoot =  driver.findElement(By.cssSelector("/html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[1]/a/svg/use"));
-//            System.out.println(driver.findElement(By.className("wg-footer__social-item")).getText());
-//            List<WebElement> li_All = driver.findElements(By.className("wg-footer__social-item"));
-//            List<WebElement> li_All2 = driver.findElements(By.className("wg-footer__social-icon"));
-//            System.out.println(li_All.size());
-//
-//            for(WebElement element : li_All){
-//                System.out.println(element.findElement(By.className("wg-footer__social-link")).getAttribute("href"));
-//                System.out.println(element.findElement(By.xpath("//*[name()='use']")).getAttribute("xlink:href"));
-//                WebElement elem2 = element.findElement(By.xpath("//*[name()='use']"));
-//                elem2.findElement(By.cssSelector("use"));
-//                WebElement elem = expandRootElement(element.findElement(By.cssSelector("use")));
-//                System.out.println(elem.getText());
-//
-////                System.out.println(element.findElement(By.xpath("//*[name()='path']")).getAttribute("d"));
-////                System.out.println(element.findElement(By.cssSelector(".wg-footer__social-icon")).getText());
-////                System.out.println(element.findElement(By.cssSelector(".wg-footer__social-icon")).getAttribute("xlink:href"));
-//              //  System.out.println(element.findElement(By.xpath("//div/a")).getAttribute("xlink:href"));
-//            }
-//
-////            /html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[3]/a/svg/use
-////            /html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[1]
-//            for(WebElement element : li_All2){
-//                System.out.println(element.getText());
-//            }
-//        }
-//
-//    }
+        @Step
+        public void chekSiteFooterForCorrectTwitterButton(WrikeResendPage resendPage) {
+
+        if (resendPage.findElement(footerFollowUs).isEnabled()) {
+            System.out.println(resendPage.driver.findElements(footerFollowUs).size());
+
+            System.out.println(resendPage.driver.findElement(By.className("wg-footer__social-item")).getText());
+            List<WebElement> li_All = resendPage.driver.findElements(By.className("wg-footer__social-item"));
+            List<WebElement> li_All2 = resendPage.driver.findElements(By.className("wg-footer__social-icon"));
+            System.out.println(li_All.size());
+
+            for(WebElement element : li_All){
+                System.out.println(element.findElement(By.className("wg-footer__social-link")).getAttribute("href"));
+                System.out.println(element.findElement(By.xpath("//*[name()='use']")).getAttribute("xlink:href"));
+                WebElement elem2 = element.findElement(By.xpath("//*[name()='use']"));
+                System.out.println(resendPage.findElement(By.cssSelector(":host(use[xlink:href^=/content])")));
+                //  WebElement elem = expandRootElement(element.findElement(By.cssSelector("use")),resendPage);
+             //   System.out.println(elem.getText());
+
+//                System.out.println(element.findElement(By.xpath("//*[name()='path']")).getAttribute("d"));
+//                System.out.println(element.findElement(By.cssSelector(".wg-footer__social-icon")).getText());
+//                System.out.println(element.findElement(By.cssSelector(".wg-footer__social-icon")).getAttribute("xlink:href"));
+              //  System.out.println(element.findElement(By.xpath("//div/a")).getAttribute("xlink:href"));
+            }
+
+//            /html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[3]/a/svg/use
+//            /html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[1]
+            for(WebElement element : li_All2){
+                System.out.println(element.getText());
+            }
+        }
+
+    }
+
+    public WebElement expandRootElement(WebElement element,WrikeResendPage resendPage) {
+        WebElement ele = (WebElement) ((JavascriptExecutor) resendPage.driver)
+                .executeScript("return arguments[0].shadowRoot", element);
+        return ele;
+    }
 
 }

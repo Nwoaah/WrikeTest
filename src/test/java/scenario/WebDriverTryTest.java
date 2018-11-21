@@ -49,7 +49,7 @@ public class WebDriverTryTest {
         // Checking for the succesful result
         wAsn.checkResendEmail();
 
-        //Check for Twitter
-//        pageWr.chekSiteFooterForCorrectTwitterButton();
+        // Check for Twitter
+        wAct.chekSiteFooterForCorrectTwitterButton(pageWr);
     }
 }
