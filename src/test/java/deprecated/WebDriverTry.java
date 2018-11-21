@@ -1,3 +1,5 @@
+package deprecated;
+
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
