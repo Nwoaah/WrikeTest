@@ -2,6 +2,7 @@ package page.base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -41,6 +42,10 @@ public class BasePage {
     public String readText (By elementBy) {
         waitVisibility(elementBy);
         return driver.findElement(elementBy).getText();
+    }
+
+    public WebElement findElement(By elementBy) {
+        return driver.findElement(elementBy);
     }
 
     // Wait for page to load

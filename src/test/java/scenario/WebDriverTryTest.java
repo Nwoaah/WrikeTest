@@ -38,13 +38,18 @@ public class WebDriverTryTest {
         pageWr.waitForPageToLoad();
         // Check current page
         wAsn.checkIfCurrentPageIsWrikeResend();
-
+        // Answering
+        wAct.FillingTheQASection(pageWr);
+        // Submitting the results/waiting for form to change
+        wAct.SubmitResults(pageWr);
+        // Check for the succesful submitting
+        wAsn.checkIfResultsSubmitted();
+        // Clicking on resend email button
+        wAct.ResendEMail(pageWr);
+        // Checking for the succesful result
+        wAsn.checkResendEmail();
 
         //Check for Twitter
 //        pageWr.chekSiteFooterForCorrectTwitterButton();
-        wAct.FillingTheQASection(pageWr);
-
-        wAct.SubmitResults(pageWr);
-
     }
 }

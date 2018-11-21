@@ -17,11 +17,14 @@ public class WrikeUIActions {
     public static final By footerFollowUs = By.cssSelector(".wg-footer__group--social");
     public static final By answerVeryInterested = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[1]/label[1]/button");
     public static final By answerJustLooking = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[1]/label[2]/button");
-    public static final By DIV_TEAM_MEMBERS = By.cssSelector("div[data-code='team_members']");
-    public static final By BUTTON = By.cssSelector("button");
-    public static final By DIV_PRIMARY_BUSINESS = By.cssSelector("div[data-code='primary_business']");
-    public static final By SWITCH__INPUT = By.className("switch__input");
-    public static final By SUBMIT_BUTTON = By.cssSelector(".section-resend-main .submit");
+    public static final By divTeamMembers = By.cssSelector("div[data-code='team_members']");
+    public static final By ButtonsOnForm = By.cssSelector("button");
+    public static final By divPrimaryBusiness = By.cssSelector("div[data-code='primary_business']");
+    public static final By switchInput = By.className("switch__input");
+    public static final By SubmitButton = By.cssSelector(".section-resend-main .submit");
+    public static final By form = By.className("survey");
+    public static final String STYLE_ATTRIBUTE = "style";
+    public static final By ResendEmailButton = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button");
 
     private WebDriver webDriver;
 
@@ -58,13 +61,13 @@ public class WrikeUIActions {
         Random random = new Random();
 
         if (random.nextInt(2) == 1) {
-            resendPage.driver.findElement(answerVeryInterested).click();
+            resendPage.click(answerVeryInterested);
         } else {
-            resendPage.driver.findElement(answerJustLooking).click();
+            resendPage.click(answerJustLooking);
         }
 
-        WebElement elements = resendPage.driver.findElement(DIV_TEAM_MEMBERS);
-        List<WebElement> elementList = elements.findElements(BUTTON);
+        WebElement elements = resendPage.findElement(divTeamMembers);
+        List<WebElement> elementList = elements.findElements(ButtonsOnForm);
         int n = random.nextInt(elementList.size());
         int counter = 0;
         for (WebElement element : elementList) {
@@ -74,9 +77,8 @@ public class WrikeUIActions {
             counter++;
         }
 
-        elements = resendPage.driver.findElement(DIV_PRIMARY_BUSINESS);
-        elementList = elements.findElements(BUTTON);
-        System.out.println(elementList.size());
+        elements = resendPage.findElement(divPrimaryBusiness);
+        elementList = elements.findElements(ButtonsOnForm);
         n = random.nextInt(elementList.size());
         counter = 0;
 
@@ -84,7 +86,7 @@ public class WrikeUIActions {
             if (n == counter) {
                 element.click();
                 if (n == 2) {
-                    element.findElement(SWITCH__INPUT).sendKeys(StringGeenerator.generateRandomString());
+                    element.findElement(switchInput).sendKeys(StringGeenerator.generateRandomString());
                 }
             }
             counter++;
@@ -93,13 +95,16 @@ public class WrikeUIActions {
 
     @Step
     public void SubmitResults(WrikeResendPage resendPage) {
-        resendPage.driver.findElement(SUBMIT_BUTTON).click();
-
-        resendPage.wait.until(ExpectedConditions.attributeToBeNotEmpty(resendPage.driver.findElement(By.className("survey")),"style"));
-        System.out.println(resendPage.driver.findElement(By.className("survey-success")).getAttribute("style"));
-        System.out.println(resendPage.driver.findElement(By.className("survey")).getAttribute("style"));
-
+        resendPage.click(SubmitButton);
+        resendPage.wait.until(ExpectedConditions.attributeToBeNotEmpty(resendPage.driver.findElement(form), STYLE_ATTRIBUTE));
     }
+
+    @Step
+    public void ResendEMail(WrikeResendPage resendPage) {
+        resendPage.click(ResendEmailButton);
+    }
+
+
     //    @Step
     //    public void chekSiteFooterForCorrectTwitterButton() {
 //        if (driver.findElement(footerFollowUs).isEnabled()) {
