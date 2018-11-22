@@ -17,7 +17,7 @@ public class WrikeMainPage extends BasePage {
     public static final By newEmailSubmitModalBtn = By.cssSelector(".modal-form-trial__submit");
 
 
-    public WrikeMainPage (WebDriver driver){
+    public WrikeMainPage(WebDriver driver) {
         super(driver);
     }
 

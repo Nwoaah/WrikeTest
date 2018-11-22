@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Random;
 
 public class WrikeUIActions {
-    public static final By footerFollowUs = By.cssSelector(".wg-footer__group--social");
     public static final By answerVeryInterested = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[1]/label[1]/button");
     public static final By answerJustLooking = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[2]/div/form/div[1]/label[2]/button");
     public static final By divTeamMembers = By.cssSelector("div[data-code='team_members']");
@@ -25,15 +24,15 @@ public class WrikeUIActions {
     public static final By switchInput = By.className("switch__input");
     public static final By SubmitButton = By.cssSelector(".section-resend-main .submit");
     public static final By form = By.className("survey");
-    public static final String STYLE_ATTRIBUTE = "style";
     public static final By ResendEmailButton = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button");
+    public static final String STYLE_ATTRIBUTE = "style";
     public static final String FOOTER_SOCIAL_ITEM = "wg-footer__social-item";
     public static final String FOOTER_SOCIAL_LINK = "wg-footer__social-link";
     public static final String HREF = "href";
     public static final String XLINK_HREF = "xlink:href";
     public static final String USE = "use";
     public static final String TWITTER_COM_WRIKE = "https://twitter.com/wrike";
-    public static final String PathToTwitterIcon = "/content/themes/wrike/dist/img/sprite/vector/footer-icons.symbol.svg?v1#twitter";
+    public static final String PATH_TO_TWITTER_ICON = "/content/themes/wrike/dist/img/sprite/vector/footer-icons.symbol.svg?v1#twitter";
 
 
     private WebDriver webDriver;
@@ -126,20 +125,19 @@ public class WrikeUIActions {
             String urlToSite = element.findElement(By.className(FOOTER_SOCIAL_LINK)).getAttribute(HREF);
             String imgLink = element.findElement(By.cssSelector(USE)).getAttribute(XLINK_HREF);
             if (urlToSite.equals(TWITTER_COM_WRIKE)) {
-                if (imgLink.equals(PathToTwitterIcon)) {
-                    flag = TwitterIconMatching.isItTwitterIcon(PathToTwitterIcon);
+                if (imgLink.equals(PATH_TO_TWITTER_ICON)) {
+                    flag = TwitterIconMatching.isItTwitterIcon(PATH_TO_TWITTER_ICON);
                 }
             }
         }
-
-
         return flag;
     }
 
-    public WebElement expandRootElement(WebElement element, WrikeResendPage resendPage) {
-        WebElement ele = (WebElement) ((JavascriptExecutor) resendPage.driver)
-                .executeScript("return arguments[0].shadowRoot", element);
-        return ele;
-    }
+//      For the future
+//    public WebElement expandRootElement(WebElement element, WrikeResendPage resendPage) {
+//        WebElement ele = (WebElement) ((JavascriptExecutor) resendPage.driver)
+//                .executeScript("return arguments[0].shadowRoot", element);
+//        return ele;
+//    }
 
 }

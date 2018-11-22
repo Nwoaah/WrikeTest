@@ -48,7 +48,6 @@ public class WebDriverTryTest {
         wAct.ResendEMail(pageWr);
         // Checking for the succesful result
         wAsn.checkResendEmail();
-
         // Check for Twitter
         wAsn.checkTwitterIcon(wAct.chekSiteFooterForCorrectTwitterButton(pageWr));
     }

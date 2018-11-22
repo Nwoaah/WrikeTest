@@ -12,11 +12,11 @@ public class WrikeUIAssertion {
 
     private WebDriver webDriver;
 
-    public WrikeUIAssertion(WebDriver webDriver){
+    public WrikeUIAssertion(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public void checkIfCurrentPageIsWrikeResend(){
+    public void checkIfCurrentPageIsWrikeResend() {
         Assert.assertEquals(webDriver.getCurrentUrl(), TestConstants.WRIKE_URL_RESEND);
     }
 
