@@ -27,4 +27,8 @@ public class WrikeUIAssertion {
     public void checkResendEmail() {
         Assert.assertEquals(webDriver.findElement(resendEmailButton).getAttribute(styleAttribute), TestConstants.DISPLAY_BLOCK_RESEND_EMAIL);
     }
+
+    public void checkTwitterIcon(boolean condition) {
+        Assert.assertTrue(condition);
+    }
 }

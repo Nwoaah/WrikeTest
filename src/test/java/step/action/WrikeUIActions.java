@@ -10,6 +10,7 @@ import page.wrike.WrikeMainPage;
 import page.wrike.WrikeResendPage;
 import util.TestConstants;
 import util.generate.StringGeenerator;
+import util.http.TwitterIconMatching;
 
 import java.util.List;
 import java.util.Random;
@@ -26,15 +27,23 @@ public class WrikeUIActions {
     public static final By form = By.className("survey");
     public static final String STYLE_ATTRIBUTE = "style";
     public static final By ResendEmailButton = By.xpath("/html/body/div[1]/main/div/div/div[2]/div/div[1]/p[3]/button");
+    public static final String FOOTER_SOCIAL_ITEM = "wg-footer__social-item";
+    public static final String FOOTER_SOCIAL_LINK = "wg-footer__social-link";
+    public static final String HREF = "href";
+    public static final String XLINK_HREF = "xlink:href";
+    public static final String USE = "use";
+    public static final String TWITTER_COM_WRIKE = "https://twitter.com/wrike";
+    public static final String PathToTwitterIcon = "/content/themes/wrike/dist/img/sprite/vector/footer-icons.symbol.svg?v1#twitter";
+
 
     private WebDriver webDriver;
 
-    public WrikeUIActions(WebDriver webDriver){
+    public WrikeUIActions(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
     @Step
-    public WrikeMainPage goToMainPage(){
+    public WrikeMainPage goToMainPage() {
         this.webDriver.get(TestConstants.WRIKE_URL_MAIN);
         this.webDriver.manage().window().maximize();
         return new WrikeMainPage(this.webDriver);
@@ -48,7 +57,7 @@ public class WrikeUIActions {
     @Step
     public WrikeResendPage startFreeForTodayWithEmail(WrikeMainPage mainPage, String email) {
         // Click Start for free
-      //  mainPage.click(WrikeMainPage.getStartedForFreeBtn);
+        //  mainPage.click(WrikeMainPage.getStartedForFreeBtn);
         // Fill email form
         mainPage.writeText(WrikeMainPage.newEmailModalText, email);
         // Click submit
@@ -57,6 +66,7 @@ public class WrikeUIActions {
         return new WrikeResendPage(webDriver);
 
     }
+
     @Step
     public void FillingTheQASection(WrikeResendPage resendPage) {
         Random random = new Random();
@@ -106,41 +116,27 @@ public class WrikeUIActions {
     }
 
 
-        @Step
-        public void chekSiteFooterForCorrectTwitterButton(WrikeResendPage resendPage) {
+    @Step
+    public boolean chekSiteFooterForCorrectTwitterButton(WrikeResendPage resendPage) {
+        boolean flag = false;
 
-        if (resendPage.findElement(footerFollowUs).isEnabled()) {
-            System.out.println(resendPage.driver.findElements(footerFollowUs).size());
-
-            System.out.println(resendPage.driver.findElement(By.className("wg-footer__social-item")).getText());
-            List<WebElement> li_All = resendPage.driver.findElements(By.className("wg-footer__social-item"));
-            List<WebElement> li_All2 = resendPage.driver.findElements(By.className("wg-footer__social-icon"));
-            System.out.println(li_All.size());
-
-            for(WebElement element : li_All){
-                System.out.println(element.findElement(By.className("wg-footer__social-link")).getAttribute("href"));
-                System.out.println(element.findElement(By.xpath("//*[name()='use']")).getAttribute("xlink:href"));
-                WebElement elem2 = element.findElement(By.xpath("//*[name()='use']"));
-                System.out.println(resendPage.findElement(By.cssSelector(":host(use[xlink:href^=/content])")));
-                //  WebElement elem = expandRootElement(element.findElement(By.cssSelector("use")),resendPage);
-             //   System.out.println(elem.getText());
-
-//                System.out.println(element.findElement(By.xpath("//*[name()='path']")).getAttribute("d"));
-//                System.out.println(element.findElement(By.cssSelector(".wg-footer__social-icon")).getText());
-//                System.out.println(element.findElement(By.cssSelector(".wg-footer__social-icon")).getAttribute("xlink:href"));
-              //  System.out.println(element.findElement(By.xpath("//div/a")).getAttribute("xlink:href"));
-            }
-
-//            /html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[3]/a/svg/use
-//            /html/body/div[1]/div/div[3]/div/div[1]/div/ul/li[1]
-            for(WebElement element : li_All2){
-                System.out.println(element.getText());
+        List<WebElement> li_All = resendPage.driver.findElements(By.className(FOOTER_SOCIAL_ITEM));
+//
+        for (WebElement element : li_All) {
+            String urlToSite = element.findElement(By.className(FOOTER_SOCIAL_LINK)).getAttribute(HREF);
+            String imgLink = element.findElement(By.cssSelector(USE)).getAttribute(XLINK_HREF);
+            if (urlToSite.equals(TWITTER_COM_WRIKE)) {
+                if (imgLink.equals(PathToTwitterIcon)) {
+                    flag = TwitterIconMatching.isItTwitterIcon(PathToTwitterIcon);
+                }
             }
         }
 
+
+        return flag;
     }
 
-    public WebElement expandRootElement(WebElement element,WrikeResendPage resendPage) {
+    public WebElement expandRootElement(WebElement element, WrikeResendPage resendPage) {
         WebElement ele = (WebElement) ((JavascriptExecutor) resendPage.driver)
                 .executeScript("return arguments[0].shadowRoot", element);
         return ele;

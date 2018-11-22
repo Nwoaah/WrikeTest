@@ -50,6 +50,6 @@ public class WebDriverTryTest {
         wAsn.checkResendEmail();
 
         // Check for Twitter
-        wAct.chekSiteFooterForCorrectTwitterButton(pageWr);
+        wAsn.checkTwitterIcon(wAct.chekSiteFooterForCorrectTwitterButton(pageWr));
     }
 }
